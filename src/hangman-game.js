@@ -18,6 +18,13 @@ function init() {
             keyboardContainer.appendChild(ñLetter);
         }
     }
+
+    letters = keyboardContainer.querySelectorAll(".letter");
+    letters.forEach(element => {
+        element.addEventListener("click", (evt) => {
+            console.log(element.textContent)
+        })
+    });
 }
 
 
