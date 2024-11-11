@@ -29,7 +29,11 @@ let hangmanStatusElement;
 let selectedThemeElement;
 let letters;
 
-const imagesPath = "resources/_.png"
+const imagesPath = "resources/images/hangman/_.png";
+const rightSoundPath = "/resources/audio/rightanswer-95219.mp3";
+const wrongSoundPath = "/resources/audio/wrong-47985.mp3";
+const winGameSoundPath = "/resources/audio/success-1-6297.mp3";
+const loseGameSoundPath = "/resources/audio/negative_beeps-6008.mp3";
 
 let text;
 let textHint;
@@ -103,6 +107,10 @@ function getIndexes(character, text) {
     return indexes;
 }
 
+function playSound(path) {
+    new Audio(path).play();
+}
+
 function updateScoreboard() {
     currentLivesElement.textContent = lives;
     correctAnswersElement.textContent = correctAnswers;
@@ -115,9 +123,11 @@ function showAlert(message) {
 
 function evaluateWin() {
     if (!revealedTextElement.textContent.includes("_")) {
+        playSound(winGameSoundPath);
         showAlert("Has ganado!!! :D\nReinicia la página para volver a intentarlo");
         isPlaying = false;
     } else if (lives == 0) {
+        playSound(loseGameSoundPath);
         showAlert("Has perdido! :/\nReinicia la página para volver a intentarlo")
         isPlaying = false;
     }
@@ -142,9 +152,13 @@ function evaluateLetterClick(letter, source) {
 
                 character.textContent = text.charAt(index);
             })
+
+            playSound(rightSoundPath);
         } else {
             lives--;
             updateHangmanImage();
+
+            playSound(wrongSoundPath);
         }
 
         updateScoreboard();
