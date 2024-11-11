@@ -81,6 +81,13 @@ function load() {
     });
 }
 
+function removeAccents(str) {
+    return str.toUpperCase()
+        .normalize("NFD")
+        .replace(/\u0301|\u0308]/g, "")
+        .replace(/N\u0303/g, "Ñ");
+}
+
 function getRandomConcept() {
     const themes = Object.keys(concepts);
     const randomTheme = themes[Math.floor(Math.random() * themes.length)];
@@ -141,11 +148,14 @@ function updateHangmanImage() {
 }
 
 function evaluateLetterClick(letter, source) {
-    if (isPlaying && lives > 0 && !selectedLetters.includes(letter.toUpperCase())) {
-        if (text.toUpperCase().includes(letter.toUpperCase())) {
+    const uText = removeAccents(text.toUpperCase());
+    const uLetter = removeAccents(letter.toUpperCase());
+
+    if (isPlaying && lives > 0 && !selectedLetters.includes(uLetter)) {
+        if (uText.includes(uLetter)) {
             correctAnswers++;
 
-            indexes = getIndexes(letter.toUpperCase(), text.toUpperCase());
+            indexes = getIndexes(uLetter, uText);
 
             indexes.forEach(index => {
                 character = revealedTextElement.children[index];
