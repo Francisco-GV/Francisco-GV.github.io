@@ -3,6 +3,7 @@ let textHintElement;
 let correctAnswersElement;
 let currentLivesElement;
 let hangmanStatusElement;
+let letters;
 
 const imagesPath = "resources/_.png"
 
@@ -14,9 +15,10 @@ let isPlaying = false;
 let lives;
 let correctAnswers;
 
+let selectedLetters = [];
+
 function load() {
     keyboardContainer = document.querySelector("#keyboard-container");
-    letter = keyboardContainer.querySelector(".letter");
     revealedTextElement = document.querySelector("#revealed_text");
     textHintElement = document.querySelector("#hint");
     correctAnswersElement = document.querySelector("#correct-answers");
@@ -26,15 +28,16 @@ function load() {
     const A = 65, Z = 90;
     const N = 78;
 
+    const letter = keyboardContainer.querySelector(".letter");
     for (let i = A + 1; i <= Z; i++) {
-        newLetter = letter.cloneNode();
+        const newLetter = letter.cloneNode();
         newLetter.textContent = String.fromCharCode(i);
 
         keyboardContainer.appendChild(newLetter);
 
         if (i == N) {
             const Ñ = 209;
-            ñLetter = letter.cloneNode();
+            const ñLetter = letter.cloneNode();
             ñLetter.textContent = String.fromCharCode(Ñ)
             keyboardContainer.appendChild(ñLetter);
         }
@@ -44,7 +47,7 @@ function load() {
     letters.forEach(element => {
         element.addEventListener("click", (evt) => {
             console.log("Click: " + element.textContent);
-            evaluateLetterClick(element.textContent);
+            evaluateLetterClick(element.textContent, evt.target || evt.srcElement);
         })
     });
 }
@@ -86,8 +89,8 @@ function updateHangmanImage() {
     hangmanStatusElement.src = path;
 }
 
-function evaluateLetterClick(letter) {
-    if (isPlaying && lives > 0) {
+function evaluateLetterClick(letter, source) {
+    if (isPlaying && lives > 0 && !selectedLetters.includes(letter.toUpperCase())) {
         if (text.toUpperCase().includes(letter.toUpperCase())) {
             correctAnswers++;
 
@@ -105,6 +108,9 @@ function evaluateLetterClick(letter) {
 
         updateScoreboard();
         evaluateWin();
+
+        selectedLetters.push(letter.toUpperCase());
+        source.classList.add("hidden")
     }
 }
 
@@ -141,7 +147,12 @@ function initGame() {
 
     correctAnswers = 0;
     lives = 7;
+    selectedLetters = [];
+    letters.forEach(element => {
+        element.classList.remove("hidden");
+    })
 
+    updateHangmanImage();
     updateScoreboard();
 }
 

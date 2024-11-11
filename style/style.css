@@ -115,3 +115,7 @@
     letter-spacing: 5px;
     word-spacing: 15px;
 }
+
+.hidden {
+    visibility: hidden;
+}
