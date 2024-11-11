@@ -36,6 +36,24 @@ function load() {
     });
 }
 
+function createRevealedTextLetters() {
+    revealedTextElement.innerHTML = "";
+    for (let i = 0; i < revealedText.length; i++) {
+        const span = document.createElement("span");
+
+        if (revealedText[i] == " ") {
+            span.className = "space-letter";
+            span.textContent = " ";
+        } else {
+            span.className = "revealed-letter";
+            span.textContent = revealedText[i];
+        }
+        revealedTextElement.appendChild(span);
+    }
+
+    console.log(revealedTextElement.textContent);
+}
+
 function initGame() {
     text = "Esta es una prueba";
     textHint = "Esta es una definición de prueba";
@@ -46,8 +64,8 @@ function initGame() {
     console.log("Revealed Text: " + revealedText);
     console.log("Text Hint: " + textHint);
 
-    revealedTextElement.textContent = revealedText;
     textHintElement.textContent = textHint;
+    createRevealedTextLetters();
 }
 
 
