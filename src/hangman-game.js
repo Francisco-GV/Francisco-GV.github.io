@@ -1,4 +1,4 @@
-window.onload = (evt) => {
+function init() {
     keyboardContainer = document.querySelector("#keyboard-container");
     letter = keyboardContainer.querySelector(".letter");
 
@@ -18,5 +18,9 @@ window.onload = (evt) => {
             keyboardContainer.appendChild(ñLetter);
         }
     }
+}
 
+
+window.onload = (evt) => {
+    init();
 }
