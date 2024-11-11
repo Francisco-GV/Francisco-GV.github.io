@@ -37,10 +37,10 @@ function load() {
 }
 
 function initGame() {
-    text = "Test";
+    text = "Esta es una prueba";
     textHint = "Esta es una definición de prueba";
 
-    revealedText = text.replace(/./g, "_");
+    revealedText = text.replace(/\S/g, "_");
 
     console.log("Text: " + text);
     console.log("Revealed Text: " + revealedText);
