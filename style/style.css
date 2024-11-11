@@ -38,6 +38,36 @@
     z-index: 1;
 }
 
+#center-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+
+#keyboard-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+    gap: 10px;
+    width: 40%;
+}
+
+#keyboard-container .letter {
+    display: inline-block;
+    text-align: center;
+    vertical-align: center;
+    line-height: 50px;
+
+    width: 50px;
+    height: 50px;
+
+    font-size: 24px;
+
+    border: 1px solid black;
+    border-radius: 8px;
+}
+
 #hint {
     margin: 15px;
 }
