@@ -5,6 +5,8 @@ let text;
 let textHint;
 let revealedText;
 
+let isPlaying = false;
+
 function load() {
     keyboardContainer = document.querySelector("#keyboard-container");
     letter = keyboardContainer.querySelector(".letter");
@@ -31,9 +33,35 @@ function load() {
     letters = keyboardContainer.querySelectorAll(".letter");
     letters.forEach(element => {
         element.addEventListener("click", (evt) => {
-            console.log(element.textContent)
+            console.log("Click: " + element.textContent);
+            evaluateLetterClick(element.textContent);
         })
     });
+}
+
+function getIndexes(character, text) {
+    let indexes = [];
+    let i = -1;
+    while ((i = text.indexOf(character, i + 1)) >= 0) {
+        indexes.push(i);
+    }
+
+    return indexes;
+}
+
+function evaluateLetterClick(letter) {
+    if (isPlaying) {
+        if (text.toUpperCase().includes(letter.toUpperCase())) {
+            indexes = getIndexes(letter.toUpperCase(), text.toUpperCase());
+
+            indexes.forEach(index => {
+                character = revealedTextElement.children[index];
+
+                character.textContent = text.charAt(index);
+            })
+
+        }
+    }
 }
 
 function createRevealedTextLetters() {
@@ -68,8 +96,13 @@ function initGame() {
     createRevealedTextLetters();
 }
 
+function startGame() {
+    isPlaying = true;
+}
+
 
 window.onload = (evt) => {
     load();
     initGame();
+    startGame();
 }
