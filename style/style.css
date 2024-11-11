@@ -37,3 +37,28 @@
 #hangman-container img#hangman-platform {
     z-index: 1;
 }
+
+#hint {
+    margin: 15px;
+}
+
+#scoreboard {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+
+    font-size: 18px;
+}
+
+#scoreboard > p > span {
+    font-weight: 600;
+}
+
+#revealed_text {
+    margin: 25px;
+
+    font-size: 42px;
+    font-weight: 600;
+    letter-spacing: 5px;
+    word-spacing: 15px;
+}
