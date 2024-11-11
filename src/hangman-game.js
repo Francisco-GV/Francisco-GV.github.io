@@ -2,6 +2,9 @@ let revealedTextElement;
 let textHintElement;
 let correctAnswersElement;
 let currentLivesElement;
+let hangmanStatusElement;
+
+const imagesPath = "resources/_.png"
 
 let text;
 let textHint;
@@ -18,6 +21,7 @@ function load() {
     textHintElement = document.querySelector("#hint");
     correctAnswersElement = document.querySelector("#correct-answers");
     currentLivesElement = document.querySelector("#current-lives");
+    hangmanStatusElement = document.querySelector("#hangman-status");
 
     const A = 65, Z = 90;
     const N = 78;
@@ -70,6 +74,13 @@ function evaluateWin() {
     }
 }
 
+function updateHangmanImage() {
+    const imageNum = Math.abs(lives - 7);
+    const path = imagesPath.replace("_", imageNum);
+
+    hangmanStatusElement.src = path;
+}
+
 function evaluateLetterClick(letter) {
     if (isPlaying && lives > 0) {
         if (text.toUpperCase().includes(letter.toUpperCase())) {
@@ -84,6 +95,7 @@ function evaluateLetterClick(letter) {
             })
         } else {
             lives--;
+            updateHangmanImage();
         }
 
         updateScoreboard();
