@@ -21,12 +21,12 @@ const concepts = {
     }
 }
 
-
 let revealedTextElement;
 let textHintElement;
 let correctAnswersElement;
 let currentLivesElement;
 let hangmanStatusElement;
+let selectedThemeElement;
 let letters;
 
 const imagesPath = "resources/_.png"
@@ -48,6 +48,7 @@ function load() {
     correctAnswersElement = document.querySelector("#correct-answers");
     currentLivesElement = document.querySelector("#current-lives");
     hangmanStatusElement = document.querySelector("#hangman-status");
+    selectedThemeElement = document.querySelector("#selected-theme");
 
     const A = 65, Z = 90;
     const N = 78;
@@ -174,6 +175,7 @@ function createRevealedTextLetters(revealedText) {
 
 function initGame() {
     const result = getRandomConcept();
+    selectedThemeElement.textContent = result.theme;
     text = result.concept;
     textHint = result.definition;
 

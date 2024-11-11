@@ -84,6 +84,16 @@
     transform: scale(1.1);
 }
 
+#theme {
+    margin: 15px;
+    font-weight: normal;
+}
+
+#selected-theme {
+    margin-left: 5px;
+    font-weight: bold;
+}
+
 #hint-container {
     margin: 15px;
     font-size: 22px;
