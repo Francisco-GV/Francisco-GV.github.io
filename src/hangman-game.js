@@ -64,12 +64,17 @@ function updateScoreboard() {
     correctAnswersElement.textContent = correctAnswers;
 }
 
+function showAlert(message) {
+    new Promise(resolve => setTimeout(resolve, 100))
+        .then(() => alert(message));
+}
+
 function evaluateWin() {
     if (!revealedTextElement.textContent.includes("_")) {
-        alert("Has ganado!!! :D");
+        showAlert("Has ganado!!! :D\nReinicia la página para volver a intentarlo");
         isPlaying = false;
     } else if (lives == 0) {
-        alert("Has perdido! :/")
+        showAlert("Has perdido! :/\nReinicia la página para volver a intentarlo")
         isPlaying = false;
     }
 }
