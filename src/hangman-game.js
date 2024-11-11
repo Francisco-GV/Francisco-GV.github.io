@@ -1,17 +1,23 @@
 let revealedTextElement;
 let textHintElement;
+let correctAnswersElement;
+let currentLivesElement;
 
 let text;
 let textHint;
-let revealedText;
 
 let isPlaying = false;
+
+let lives;
+let correctAnswers;
 
 function load() {
     keyboardContainer = document.querySelector("#keyboard-container");
     letter = keyboardContainer.querySelector(".letter");
     revealedTextElement = document.querySelector("#revealed_text");
     textHintElement = document.querySelector("#hint");
+    correctAnswersElement = document.querySelector("#correct-answers");
+    currentLivesElement = document.querySelector("#current-lives");
 
     const A = 65, Z = 90;
     const N = 78;
@@ -49,9 +55,26 @@ function getIndexes(character, text) {
     return indexes;
 }
 
+function updateScoreboard() {
+    currentLivesElement.textContent = lives;
+    correctAnswersElement.textContent = correctAnswers;
+}
+
+function evaluateWin() {
+    if (!revealedTextElement.textContent.includes("_")) {
+        alert("Has ganado!!! :D");
+        isPlaying = false;
+    } else if (lives == 0) {
+        alert("Has perdido! :/")
+        isPlaying = false;
+    }
+}
+
 function evaluateLetterClick(letter) {
-    if (isPlaying) {
+    if (isPlaying && lives > 0) {
         if (text.toUpperCase().includes(letter.toUpperCase())) {
+            correctAnswers++;
+
             indexes = getIndexes(letter.toUpperCase(), text.toUpperCase());
 
             indexes.forEach(index => {
@@ -59,12 +82,16 @@ function evaluateLetterClick(letter) {
 
                 character.textContent = text.charAt(index);
             })
-
+        } else {
+            lives--;
         }
+
+        updateScoreboard();
+        evaluateWin();
     }
 }
 
-function createRevealedTextLetters() {
+function createRevealedTextLetters(revealedText) {
     revealedTextElement.innerHTML = "";
     for (let i = 0; i < revealedText.length; i++) {
         const span = document.createElement("span");
@@ -86,14 +113,19 @@ function initGame() {
     text = "Esta es una prueba";
     textHint = "Esta es una definición de prueba";
 
-    revealedText = text.replace(/\S/g, "_");
+    const revealedText = text.replace(/\S/g, "_");
 
     console.log("Text: " + text);
     console.log("Revealed Text: " + revealedText);
     console.log("Text Hint: " + textHint);
 
     textHintElement.textContent = textHint;
-    createRevealedTextLetters();
+    createRevealedTextLetters(revealedText);
+
+    correctAnswers = 0;
+    lives = 7;
+
+    updateScoreboard();
 }
 
 function startGame() {
