@@ -58,6 +58,7 @@ h1, h2 {
 #center-container {
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
     margin-top: 20px;
     gap: 30px;
 }
@@ -156,7 +157,24 @@ h1, h2 {
     font-size: 18px;
 }
 
+#bottom-info p {
+    display: inline-block;
+    margin: 0 15px;
+}
+
 #bottom-info a {
     font-weight: bold;
     color: rgb(71, 43, 0);
+}
+
+
+@media screen and (max-width: 830px) {
+    #keyboard-container {
+        width: 100%;
+        margin: 15px;
+    }
+
+    #bottom-info {
+        justify-content: center;
+    }
 }
