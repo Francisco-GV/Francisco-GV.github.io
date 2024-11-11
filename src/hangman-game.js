@@ -1,6 +1,15 @@
-function init() {
+let revealedTextElement;
+let textHintElement;
+
+let text;
+let textHint;
+let revealedText;
+
+function load() {
     keyboardContainer = document.querySelector("#keyboard-container");
     letter = keyboardContainer.querySelector(".letter");
+    revealedTextElement = document.querySelector("#revealed_text");
+    textHintElement = document.querySelector("#hint");
 
     const A = 65, Z = 90;
     const N = 78;
@@ -27,7 +36,22 @@ function init() {
     });
 }
 
+function initGame() {
+    text = "Test";
+    textHint = "Esta es una definición de prueba";
+
+    revealedText = text.replace(/./g, "_");
+
+    console.log("Text: " + text);
+    console.log("Revealed Text: " + revealedText);
+    console.log("Text Hint: " + textHint);
+
+    revealedTextElement.textContent = revealedText;
+    textHintElement.textContent = textHint;
+}
+
 
 window.onload = (evt) => {
-    init();
+    load();
+    initGame();
 }

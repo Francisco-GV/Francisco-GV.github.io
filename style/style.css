@@ -84,8 +84,15 @@
     transform: scale(1.1);
 }
 
-#hint {
+#hint-container {
     margin: 15px;
+    font-size: 22px;
+    font-weight: 600;
+}
+
+#hint {
+    font-weight: normal;
+    margin: 5px;
 }
 
 #scoreboard {
