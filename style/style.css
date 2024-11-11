@@ -41,7 +41,7 @@ h1, h2 {
 
     position: relative;
     width: 360px;
-    height: 360px;
+    aspect-ratio: 1 / 1;
 }
 
 #hangman-container img {
@@ -169,9 +169,47 @@ h1, h2 {
 
 
 @media screen and (max-width: 830px) {
+    h1, h2 {
+        font-size: 1em;
+        margin: 0;
+    }
+
+    h3#theme {
+        margin: 5px;
+    }
+
+    #hint-container {
+        font-size: 1em;
+        margin: 5px;
+    }
+
+    #hangman-container {
+        width: 180px;
+    }
+
     #keyboard-container {
         width: 100%;
         margin: 15px;
+    }
+
+    #center-container {
+        margin: 0;
+        gap: 5px;
+    }
+
+    #keyboard-container {
+        margin: 5px;
+    }
+
+    #keyboard-container .letter {
+        width: 25px;
+        height: 25px;
+        font-size: 15px;
+        line-height: 25px;
+    }
+
+    #revealed_text {
+        font-size: 1.5em;
     }
 
     #bottom-info {
