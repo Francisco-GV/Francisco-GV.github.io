@@ -28,6 +28,10 @@
     max-width: 1440px;
 }
 
+#game-container {
+    position: relative;
+}
+
 #title-container {
     margin-top: 20px;
 }
@@ -165,6 +169,54 @@ h1, h2 {
 #bottom-info a {
     font-weight: bold;
     color: rgb(71, 43, 0);
+}
+
+#alert {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    width: 500px;
+    height: 200px;
+    top: 50%;
+    left: 50%;
+    margin-top: -100px;
+    margin-left: -250px;
+
+    padding: 15px 0;
+
+    border: 5px solid rgb(161, 81, 15);
+    background: white;
+    z-index: 2;
+}
+
+#alert p {
+    height: auto;
+    flex-grow: 1;
+    vertical-align: middle;
+}
+
+#alert #alert-message {
+    font-size: 2em;
+}
+
+.alert-win {
+    color: green;
+}
+
+.alert-lose {
+    color: red;
+}
+
+#alert #restart {
+    font-size: 1.2em;
+    width: fit-content;
+    cursor: pointer;
+}
+
+.complete-hidden {
+    display: none !important;
 }
 
 

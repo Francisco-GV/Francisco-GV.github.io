@@ -13,6 +13,11 @@
             <h2>Juego Interactivo - Comunicación y Habilidades Digitales</h2>
         </div>
         <div id="game-container">
+            <div id="alert" class="complete-hidden">
+                <h3 id="alert-message">Mensaje de alerta</h3>
+                <p id="answer">Aquí va la respuesta</p>
+                <button id="restart" type="button" onclick="restartGame()">Reiniciar con nueva palabra</button>
+            </div>
             <h3 id="theme">Tema seleccionado: <span id="selected-theme"></span></h3>
             <p id="hint-container">Pista: <span id="hint">Aquí va la definición del concepto</span></p>
             <div id="scoreboard">

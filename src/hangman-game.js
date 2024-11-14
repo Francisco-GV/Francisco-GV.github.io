@@ -27,13 +27,17 @@ let correctAnswersElement;
 let currentLivesElement;
 let hangmanStatusElement;
 let selectedThemeElement;
+let alertElement;
+let messageElement;
+let answerElement;
+let btnRestart;
 let letters;
 
 const imagesPath = "resources/images/hangman/_.png";
-const rightSoundPath = "/resources/audio/rightanswer-95219.mp3";
-const wrongSoundPath = "/resources/audio/wrong-47985.mp3";
-const winGameSoundPath = "/resources/audio/success-1-6297.mp3";
-const loseGameSoundPath = "/resources/audio/negative_beeps-6008.mp3";
+const rightSoundPath = "resources/audio/rightanswer-95219.mp3";
+const wrongSoundPath = "resources/audio/wrong-47985.mp3";
+const winGameSoundPath = "resources/audio/success-1-6297.mp3";
+const loseGameSoundPath = "resources/audio/negative_beeps-6008.mp3";
 
 let text;
 let textHint;
@@ -53,6 +57,10 @@ function load() {
     currentLivesElement = document.querySelector("#current-lives");
     hangmanStatusElement = document.querySelector("#hangman-status");
     selectedThemeElement = document.querySelector("#selected-theme");
+    alertElement = document.querySelector("#alert");
+    btnRestart = document.querySelector("#restart");
+    messageElement = alertElement.querySelector("#alert-message");
+    answerElement = alertElement.querySelector("#answer");
 
     const A = 65, Z = 90;
     const N = 78;
@@ -79,6 +87,11 @@ function load() {
             evaluateLetterClick(element.textContent, evt.target || evt.srcElement);
         })
     });
+}
+
+function restartGame() {
+    initGame();
+    startGame();
 }
 
 function removeAccents(str) {
@@ -123,19 +136,28 @@ function updateScoreboard() {
     correctAnswersElement.textContent = correctAnswers;
 }
 
-function showAlert(message) {
-    new Promise(resolve => setTimeout(resolve, 100))
-        .then(() => alert(message));
+function showAlert(message, answer, win) {
+    if (win) {
+        messageElement.classList.add("alert-win")
+    } else {
+        messageElement.classList.add("alert-lose")
+    }
+    
+    messageElement.textContent = message;
+    answerElement.textContent = "La respuesta es: " + answer;
+
+    alertElement.classList.remove("complete-hidden");
 }
 
 function evaluateWin() {
     if (!revealedTextElement.textContent.includes("_")) {
         playSound(winGameSoundPath);
-        showAlert("Has ganado!!! :D\nReinicia la página para volver a intentarlo");
+        showAlert("Has ganado!!! :D", text, true);
         isPlaying = false;
     } else if (lives == 0) {
         playSound(loseGameSoundPath);
-        showAlert("Has perdido! :/\nReinicia la página para volver a intentarlo")
+        showAlert("Has perdido :/", text, false);
+
         isPlaying = false;
     }
 }
@@ -218,6 +240,10 @@ function initGame() {
     letters.forEach(element => {
         element.classList.remove("hidden");
     })
+
+    messageElement.classList.remove("alert-win")
+    messageElement.classList.remove("alert-lose")
+    alertElement.classList.add("complete-hidden")
 
     updateHangmanImage();
     updateScoreboard();
